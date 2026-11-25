@@ -45,41 +45,19 @@ Mở `http://localhost:3000`, sau đó đăng nhập bằng `ADMIN_EMAIL` và `A
 
 Khi kết nối cơ sở dữ liệu lần đầu, máy chủ tự tạo bảng, tài khoản quản trị và dữ liệu minh họa. Đổi `ADMIN_EMAIL` hoặc `ADMIN_PASSWORD` sau khi tài khoản đã được tạo sẽ không tự thay đổi tài khoản đó.
 
-## 2. Đưa mã lên GitHub để triển khai
+## 2. Mã nguồn trên GitHub
 
-### Tạo kho riêng
-
-1. Đăng nhập GitHub và tạo một repository **Private** tên `novatrix-inventory`.
-2. Tạo kho trống; không chọn thêm README, `.gitignore` hoặc license.
-3. Sao chép đường dẫn HTTPS của kho. Đường dẫn có dạng `https://github.com/TEN_TAI_KHOAN/novatrix-inventory.git`.
-
-### Đẩy mã từ VS Code
-
-Trong Terminal PowerShell, thay `TEN_TAI_KHOAN` trong lệnh cuối bằng tên tài khoản GitHub của bạn, rồi chạy:
-
-```powershell
-Set-Location E:\code
-git add .
-git config user.name "Tên hiển thị của bạn"
-git config user.email "Email đã đăng ký GitHub"
-git commit -m "Hoan thien NOVATRIX"
-git remote add origin https://github.com/TEN_TAI_KHOAN/novatrix-inventory.git
-git push -u origin main
-```
-
-`git config` ở đây chỉ áp dụng cho kho `E:\code`. Nếu Git báo đã có `origin`, dùng `git remote set-url origin https://github.com/TEN_TAI_KHOAN/novatrix-inventory.git` thay cho lệnh `git remote add origin`.
-
-Tệp `.env` bị loại khỏi Git bởi `.gitignore`; chỉ `.env.example` với giá trị mẫu được đưa lên kho.
+Mã ứng dụng hiện có tại [github.com/evistars/dhung](https://github.com/evistars/dhung). Repository này đang ở chế độ **Public**, vì vậy mọi người đều xem được mã nguồn. Tệp .env không được đưa lên GitHub; .gitignore loại trừ tệp này và .env.example chỉ chứa giá trị mẫu. Không đưa mật khẩu, connection string hoặc khóa bí mật vào repository.
 
 ## 3. Triển khai trên Render và Neon
 
-1. Tạo cơ sở dữ liệu PostgreSQL trên Neon. Sao chép connection string và giữ kín.
-2. Đăng nhập Render, chọn **New → Blueprint** và kết nối repository GitHub riêng `novatrix-inventory`.
-3. Render đọc cấu hình trong `render.yaml`. Khi được hỏi, nhập `DATABASE_URL`, `ADMIN_EMAIL` và `ADMIN_PASSWORD`. Render tự tạo `SESSION_SECRET`; không cần đăng giá trị bí mật lên GitHub.
-4. Chờ trạng thái deploy thành công. Mở địa chỉ `https://...onrender.com`; đăng nhập bằng email và mật khẩu đã nhập trên Render.
-5. Có thể kiểm tra máy chủ và cơ sở dữ liệu tại `https://TEN_DU_AN.onrender.com/api/health`. Kết quả hoạt động là `{"ok":true}`.
+1. Tạo cơ sở dữ liệu PostgreSQL trên Neon. Giữ kín connection string.
+2. Đăng nhập Render, chọn **New → Blueprint** và kết nối repository GitHub evistars/dhung.
+3. Render đọc cấu hình trong render.yaml. Khi được hỏi, nhập DATABASE_URL, ADMIN_EMAIL và ADMIN_PASSWORD. Render tự tạo SESSION_SECRET; giữ các giá trị bí mật trong phần cấu hình của Render.
+4. Chờ trạng thái deploy thành công. Mở địa chỉ https://...onrender.com rồi đăng nhập bằng email và mật khẩu đã đặt.
+5. Kiểm tra máy chủ và cơ sở dữ liệu tại https://TEN_DU_AN.onrender.com/api/health. Khi hoạt động, API trả về {"ok":true}.
 
-Render yêu cầu người dùng ít nhất 16 tuổi. Nếu bạn dưới 16 tuổi, phụ huynh hoặc người giám hộ cần đứng tên và quản lý tài khoản hosting. Không gửi mật khẩu, connection string, mã đăng nhập hay khóa bí mật trong cuộc trò chuyện.
+Render yêu cầu người dùng ít nhất 16 tuổi. Nếu bạn dưới 16 tuổi, phụ huynh hoặc người giám hộ cần đứng tên và quản lý tài khoản hosting. Không gửi mật khẩu, connection string, mã đăng nhập hoặc khóa bí mật trong cuộc trò chuyện.
 
 ## Tính năng
 
@@ -92,4 +70,4 @@ Render yêu cầu người dùng ít nhất 16 tuổi. Nếu bạn dưới 16 tu
 
 ## Giới hạn gói miễn phí
 
-Dịch vụ web Render miễn phí có thể ngủ sau thời gian không có truy cập nên lần mở đầu có thể chậm. Neon miễn phí có giới hạn tài nguyên và có thể tạm dừng khi không hoạt động. Đây là cấu hình phù hợp để học và thử nghiệm; trước khi dùng trong hoạt động thật, cần chọn gói phù hợp và thiết lập sao lưu dữ liệu.
+Dịch vụ web Render miễn phí có thể ngủ sau 15 phút không có truy cập nên lần mở đầu có thể chậm. Neon miễn phí có giới hạn tài nguyên và có thể tạm dừng khi không hoạt động. Đây là cấu hình phù hợp để học và thử nghiệm; trước khi dùng trong hoạt động thật, cần chọn gói phù hợp và thiết lập sao lưu dữ liệu.
