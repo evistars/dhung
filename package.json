@@ -2,20 +2,20 @@
   "name": "novatrix-inventory-delivery",
   "version": "1.0.0",
   "private": true,
-  "description": "Quản lý hàng tồn kho và hành trình giao hàng",
-  "main": "server.js",
+  "type": "module",
+  "description": "Quản lý hàng tồn kho và hành trình giao hàng trên Cloudflare Workers",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:create": "wrangler d1 create novatrix-db --binding DB --update-config",
+    "db:migrate:local": "wrangler d1 migrations apply novatrix-db --local",
+    "db:migrate:prod": "wrangler d1 migrations apply novatrix-db --remote",
+    "db:info": "wrangler d1 info novatrix-db"
   },
   "engines": {
     "node": ">=22 <25"
   },
-  "dependencies": {
-    "dotenv": "^17.2.3",
-    "express": "^5.1.0",
-    "express-rate-limit": "^8.2.1",
-    "helmet": "^8.1.0",
-    "pg": "^8.16.3"
+  "devDependencies": {
+    "wrangler": "^4.0.0"
   }
 }
