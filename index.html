@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NOVATRIX | Quản lý kho và giao hàng</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <section id="auth-root" class="auth-screen" aria-live="polite">
+    <div class="login-card card">
+      <div class="brand login-brand">NOVA<span>TRIX</span></div>
+      <h1>Đăng nhập quản lý</h1>
+      <p class="subtitle">Đăng nhập để truy cập kho hàng và đơn giao.</p>
+      <div class="login-message">Đang kết nối máy chủ…</div>
+    </div>
+  </section>
+
+  <div class="layout" id="app-shell" hidden>
+    <aside class="sidebar">
+      <div class="brand">NOVA<span>TRIX</span></div>
+      <div class="nav-label">Quản lý</div>
+      <button class="nav-button active" data-page="dashboard">▦　Bảng điều khiển</button>
+      <button class="nav-button" data-page="inventory">▣　Kho hàng</button>
+      <button class="nav-button" data-page="shipments">▰　Đơn giao hàng</button>
+      <button class="nav-button" data-page="tracking">⌖　Hành trình giao</button>
+      <button class="nav-button" data-page="reports">▤　Báo cáo</button>
+      <div class="sidebar-note">
+        Quản lý hàng tồn kho và theo dõi đơn giao tại một nơi.
+      </div>
+    </aside>
+
+    <main class="main">
+      <header>
+        <strong id="breadcrumb">Bảng điều khiển</strong>
+        <div class="header-user">
+          <span id="user-label"></span>
+          <button class="button" id="logout-button" type="button">Đăng xuất</button>
+        </div>
+      </header>
+      <div class="content" id="content"></div>
+    </main>
+  </div>
+
+  <div id="modal-root"></div>
+  <div id="toast-root"></div>
+</body>
+</html>
